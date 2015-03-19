@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="Up" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="X509" rel="Chapter" href="X509.html"><link title="Abstract certificate type" rel="Section" href="#1_Abstractcertificatetype">
+<link title="Operations on a certificate" rel="Section" href="#1_Operationsonacertificate">
+<title>X509</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="index.html" title="Index">Up</a>
+&nbsp;</div>
+<h1>Module <a href="type_X509.html">X509</a></h1>
+
+<pre><span class="keyword">module</span> X509: <code class="code">sig</code> <a href="X509.html">..</a> <code class="code">end</code></pre><div class="info module top">
+X509 encoding, validation, and name validation.
+<p>
+
+    <code class="code">X509</code> is a module for handling X.509 certificates, as described
+    in RFC5280.  X.509 describes a hierarchical public key
+    infrastructure, where all trust is delegated to certificate
+    authorities (CA).  The task of a CA is to sign certificate signing
+    requests (transforming them into certificates) after successful
+    verification that the requestor eligible (such as the owner of a
+    domain name), optionally adding usage extensions, and a validity
+    period.
+<p>
+
+    The public keys of trusted CAs are distributed with the software,
+    or configured manually.  When an endpoint connects, it has to
+    present its certificate chain, which are pairwise signed
+    certificates.  This chain is verified: the signatures have to be
+    valid, the last certificate must be signed by a trusted CA, the
+    name has to match the expected name, all certificates must be
+    valid at the current time, and the purpose of each certificate
+    must match its usage.
+<p>
+
+    An X.509 certificate is an authentication token: a public key, a
+    subject (server name), a validity period, optionally a purpose,
+    and various other optional extensions.
+<p>
+
+    This module provides <a href="X509.Encoding.html"> parsers and unparsers</a> (PEM
+    encoding and Cstruct) of ASN.1 encoded X.509 certificates,
+    <a href="X509.Validation.html"> validation</a> of certificates, and construction of
+    <a href="X509.Authenticator.html"> authenticators</a>.  Name validation, as defined in
+    RFC6125, is implemented.
+<p>
+
+    Missing is the handling of certificate revocation lists, online
+    certificate status protocol, some X.509v3 extensions (such as
+    policy and name constraints).  The only key type fully supported
+    is RSA.<br>
+</div>
+<hr width="100%">
+<br>
+<h1 id="1_Abstractcertificatetype">Abstract certificate type</h1><br>
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> </pre>
+<div class="info ">
+The abstract type of certificates.<br>
+</div>
+
+
+<pre><span id="VALt_of_sexp"><span class="keyword">val</span> t_of_sexp</span> : <code class="type">Sexplib.Sexp.t -> <a href="X509.html#TYPEt">t</a></code></pre><div class="info ">
+<code class="code">t_of_sexp sexp</code> is <code class="code">certificate</code>, the unmarshalled <code class="code">sexp</code>.<br>
+</div>
+
+<pre><span id="VALsexp_of_t"><span class="keyword">val</span> sexp_of_t</span> : <code class="type"><a href="X509.html#TYPEt">t</a> -> Sexplib.Sexp.t</code></pre><div class="info ">
+<code class="code">sexp_of_t certificate</code> is <code class="code">sexp</code>, the marshalled <code class="code">certificate</code>.<br>
+</div>
+<br>
+<h1 id="1_Operationsonacertificate">Operations on a certificate</h1><br>
+
+<pre><span id="TYPEkey_type"><span class="keyword">type</span> <code class="type"></code>key_type</span> = <code class="type">[ `DH | `ECDH | `ECDSA | `RSA ]</code> </pre>
+<div class="info ">
+The polymorphic variant of public key types.<br>
+</div>
+
+
+<pre><span id="VALsupports_keytype"><span class="keyword">val</span> supports_keytype</span> : <code class="type"><a href="X509.html#TYPEt">t</a> -> <a href="X509.html#TYPEkey_type">key_type</a> -> bool</code></pre><div class="info ">
+<code class="code">supports_keytype certificate key_type</code> is <code class="code">result</code>, whether public key of the <code class="code">certificate</code> matches the given <code class="code">key_type</code>.<br>
+</div>
+
+<pre><span id="TYPEpubkey"><span class="keyword">type</span> <code class="type"></code>pubkey</span> = <code class="type">[ `RSA of Nocrypto.Rsa.pub ]</code> </pre>
+<div class="info ">
+The polymorphic variant of public keys.<br>
+</div>
+
+
+<pre><span id="VALcert_pubkey"><span class="keyword">val</span> cert_pubkey</span> : <code class="type"><a href="X509.html#TYPEt">t</a> -> <a href="X509.html#TYPEpubkey">pubkey</a> option</code></pre><div class="info ">
+<code class="code">cert_pubkey certificate</code> is <code class="code">pubkey</code>, the public key of the
+    <code class="code">certificate</code>.<br>
+</div>
+
+<pre><span id="TYPEkey_usage"><span class="keyword">type</span> <code class="type"></code>key_usage</span> = <code class="type">[ `CRL_sign<br>       | `Content_commitment<br>       | `Data_encipherment<br>       | `Decipher_only<br>       | `Digital_signature<br>       | `Encipher_only<br>       | `Key_agreement<br>       | `Key_cert_sign<br>       | `Key_encipherment ]</code> </pre>
+<div class="info ">
+The polymorphic variant of key usages.<br>
+</div>
+
+
+<pre><span id="VALsupports_usage"><span class="keyword">val</span> supports_usage</span> : <code class="type">?not_present:bool -> <a href="X509.html#TYPEt">t</a> -> <a href="X509.html#TYPEkey_usage">key_usage</a> -> bool</code></pre><div class="info ">
+<code class="code">supports_usage ?not_present certificate key_usage</code> is <code class="code">result</code>,
+    whether the <code class="code">certificate</code> supports the given <code class="code">key_usage</code>.<br>
+</div>
+
+<pre><span id="TYPEextended_key_usage"><span class="keyword">type</span> <code class="type"></code>extended_key_usage</span> = <code class="type">[ `Any<br>       | `Client_auth<br>       | `Code_signing<br>       | `Email_protection<br>       | `Ipsec_end<br>       | `Ipsec_tunnel<br>       | `Ipsec_user<br>       | `Ocsp_signing<br>       | `Other of Asn.OID.t<br>       | `Server_auth<br>       | `Time_stamping ]</code> </pre>
+<div class="info ">
+The polymorphic variant of extended key usages.<br>
+</div>
+
+
+<pre><span id="VALsupports_extended_usage"><span class="keyword">val</span> supports_extended_usage</span> : <code class="type">?not_present:bool -> <a href="X509.html#TYPEt">t</a> -> <a href="X509.html#TYPEextended_key_usage">extended_key_usage</a> -> bool</code></pre><div class="info ">
+<code class="code">supports_extended_usage certificate extended_key_usage</code> is
+    <code class="code">result</code>, whether the <code class="code">certificate</code> supports the given
+    <code class="code">extended_key_usage</code>.<br>
+</div>
+
+<pre><span id="VALcert_hostnames"><span class="keyword">val</span> cert_hostnames</span> : <code class="type"><a href="X509.html#TYPEt">t</a> -> string list</code></pre><div class="info ">
+<code class="code">cert_hostnames certficate</code> are <code class="code">hostnames</code>, the list of hostnames
+    this <code class="code">certifcate</code> is valid for.  Currently, these are the DNS names of
+    the subject alternativ name extension, if present, or otherwise the
+    singleton list containing the common name.<br>
+</div>
+
+<pre><span id="TYPEhost"><span class="keyword">type</span> <code class="type"></code>host</span> = <code class="type">[ `Strict of string | `Wildcard of string ]</code> </pre>
+<div class="info ">
+The polymorphic variant for hostname validation.<br>
+</div>
+
+
+<pre><span id="VALsupports_hostname"><span class="keyword">val</span> supports_hostname</span> : <code class="type"><a href="X509.html#TYPEt">t</a> -> <a href="X509.html#TYPEhost">host</a> -> bool</code></pre><div class="info ">
+<code class="code">supports_hostname certificate host</code> is <code class="code">result</code>, whether the
+    <code class="code">certificate</code> contains the given <code class="code">host</code>, using
+    <a href="X509.html#VALcert_hostnames"><code class="code">X509.cert_hostnames</code></a>.<br>
+</div>
+
+<pre><span id="VALcommon_name_to_string"><span class="keyword">val</span> common_name_to_string</span> : <code class="type"><a href="X509.html#TYPEt">t</a> -> string</code></pre><div class="info ">
+<code class="code">common_name_to_string certificate</code> is <code class="code">common_name</code>, the common
+    name of the subject of the <code class="code">certificate</code>.<br>
+</div>
+
+<pre><span class="keyword">module</span> <a href="X509.Validation.html">Validation</a>: <code class="code">sig</code> <a href="X509.Validation.html">..</a> <code class="code">end</code></pre><div class="info">
+Validation logic: error variant and functions.
+</div>
+
+<pre><span class="keyword">module</span> <a href="X509.Authenticator.html">Authenticator</a>: <code class="code">sig</code> <a href="X509.Authenticator.html">..</a> <code class="code">end</code></pre><div class="info">
+Authenticators of certificate chains
+</div>
+
+<pre><span class="keyword">module</span> <a href="X509.Encoding.html">Encoding</a>: <code class="code">sig</code> <a href="X509.Encoding.html">..</a> <code class="code">end</code></pre><div class="info">
+Encodings
+</div>
+</body></html>

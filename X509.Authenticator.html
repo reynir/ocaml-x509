@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="X509.Validation.html">
+<link rel="next" href="X509.Encoding.html">
+<link rel="Up" href="X509.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="X509" rel="Chapter" href="X509.html"><link title="Authenticators" rel="Section" href="#1_Authenticators">
+<title>X509.Authenticator</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="X509.Validation.html" title="X509.Validation">Previous</a>
+&nbsp;<a class="up" href="X509.html" title="X509">Up</a>
+&nbsp;<a class="post" href="X509.Encoding.html" title="X509.Encoding">Next</a>
+</div>
+<h1>Module <a href="type_X509.Authenticator.html">X509.Authenticator</a></h1>
+
+<pre><span class="keyword">module</span> Authenticator: <code class="code">sig</code> <a href="X509.Authenticator.html">..</a> <code class="code">end</code></pre><div class="info module top">
+Authenticators of certificate chains<br>
+</div>
+<hr width="100%">
+<br>
+<h1 id="1_Authenticators">Authenticators</h1><br>
+
+<pre><span id="TYPEa"><span class="keyword">type</span> <code class="type"></code>a</span> = <code class="type">?host:<a href="X509.html#TYPEhost">X509.host</a> -> <a href="X509.html#TYPEt">X509.t</a> list -> <a href="X509.Validation.html#TYPEresult">X509.Validation.result</a></code> </pre>
+<div class="info ">
+An authenticator <code class="code">a</code> is a function taking a hostname and a
+      certificate stack to an authentication decision <a href="X509.Validation.html#TYPEresult"><code class="code">X509.Validation.result</code></a>.<br>
+</div>
+
+
+<pre><span id="VALchain_of_trust"><span class="keyword">val</span> chain_of_trust</span> : <code class="type">?time:float -> <a href="X509.html#TYPEt">X509.t</a> list -> <a href="X509.Authenticator.html#TYPEa">a</a></code></pre><div class="info ">
+<code class="code">chain_of_trust ?time trust_anchors</code> is <code class="code">authenticator</code>, which
+      uses the given <code class="code">time</code> and list of <code class="code">trust_anchors</code> to verify the
+      certificate chain. This is an implementation of the algorithm
+      described in RFC5280, using
+      <a href="X509.Validation.html#VALverify_chain_of_trust"><code class="code">X509.Validation.verify_chain_of_trust</code></a>.<br>
+</div>
+
+<pre><span id="VALserver_fingerprint"><span class="keyword">val</span> server_fingerprint</span> : <code class="type">?time:float -><br>       hash:Nocrypto.Hash.hash -><br>       fingerprints:(string * Cstruct.t) list -> <a href="X509.Authenticator.html#TYPEa">a</a></code></pre><div class="info ">
+<code class="code">server_fingerprint ?time hash fingerprints</code> is an
+      <code class="code">authenticator</code> which uses the given <code class="code">time</code> and list of
+      <code class="code">fingerprints</code> to verify the first element of the certificate
+      chain, using <a href="X509.Validation.html#VALtrust_fingerprint"><code class="code">X509.Validation.trust_fingerprint</code></a>.<br>
+</div>
+
+<pre><span id="VALnull"><span class="keyword">val</span> null</span> : <code class="type"><a href="X509.Authenticator.html#TYPEa">a</a></code></pre><div class="info ">
+<code class="code">null</code> is <code class="code">authenticator</code>, which always returns <code class="code">`Ok</code>. For
+      testing purposes only.<br>
+</div>
+
+<pre><span id="VALa_of_sexp"><span class="keyword">val</span> a_of_sexp</span> : <code class="type">Sexplib.Sexp.t -> <a href="X509.Authenticator.html#TYPEa">a</a></code></pre><div class="info ">
+<code class="code">a_of_sexp sexp</code> is <code class="code">authenticator</code>, the unmarshalled <code class="code">sexp</code><br>
+</div>
+
+<pre><span id="VALsexp_of_a"><span class="keyword">val</span> sexp_of_a</span> : <code class="type"><a href="X509.Authenticator.html#TYPEa">a</a> -> Sexplib.Sexp.t</code></pre><div class="info ">
+<code class="code">sexp_of_a authenticator</code> is <code class="code">sexp</code>, the marshalled <code class="code">authenticator</code><br>
+</div>
+</body></html>
