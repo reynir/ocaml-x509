@@ -44,6 +44,9 @@ val t_of_sexp : Sexplib.Sexp.t -> t
 (** [sexp_of_t certificate] is [sexp], the marshalled [certificate]. *)
 val sexp_of_t : t -> Sexplib.Sexp.t
 
+(** [id certificate] is [string], the unique identifier of a certificate. *)
+val id : t -> string
+
 (** {1 Operations on a certificate} *)
 
 (** The polymorphic variant of public key types. *)
