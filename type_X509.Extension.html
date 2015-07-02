@@ -1,0 +1,70 @@
+<html><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="X509" rel="Chapter" href="X509.html"><title>X509.Extension</title>
+</head>
+<body>
+<code class="code"><span class="keyword">sig</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;key_usage&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<span class="keywordsign">`</span><span class="constructor">CRL_sign</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Content_commitment</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Data_encipherment</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Decipher_only</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Digital_signature</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Encipher_only</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Key_agreement</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Key_cert_sign</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Key_encipherment</span>&nbsp;]<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;supports_usage&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?not_present:bool&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">X509</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">X509</span>.<span class="constructor">Extension</span>.key_usage&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;extended_key_usage&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<span class="keywordsign">`</span><span class="constructor">Any</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Client_auth</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Code_signing</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Email_protection</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Ipsec_end</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Ipsec_tunnel</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Ipsec_user</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Ocsp_signing</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Other</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Asn</span>.<span class="constructor">OID</span>.t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Server_auth</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Time_stamping</span>&nbsp;]<br>
+&nbsp;&nbsp;<span class="keyword">val</span>&nbsp;supports_extended_usage&nbsp;:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?not_present:bool&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">X509</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">X509</span>.<span class="constructor">Extension</span>.extended_key_usage&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;bool<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;general_name&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<span class="keywordsign">`</span><span class="constructor">DNS</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Directory</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">X509</span>.distinguished_name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">EDI_party</span>&nbsp;<span class="keyword">of</span>&nbsp;string&nbsp;option&nbsp;*&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">IP</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Cstruct</span>.t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Other</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Asn</span>.<span class="constructor">OID</span>.t&nbsp;*&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Registered_id</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Asn</span>.<span class="constructor">OID</span>.t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Rfc_822</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">URI</span>&nbsp;<span class="keyword">of</span>&nbsp;string<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">X400_address</span>&nbsp;<span class="keyword">of</span>&nbsp;unit&nbsp;]<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;authority_key_id&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">Cstruct</span>.t&nbsp;option&nbsp;*&nbsp;<span class="constructor">X509</span>.<span class="constructor">Extension</span>.general_name&nbsp;list&nbsp;*&nbsp;<span class="constructor">Z</span>.t&nbsp;option<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;priv_key_usage_period&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<span class="keywordsign">`</span><span class="constructor">Interval</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Asn</span>.<span class="constructor">Time</span>.t&nbsp;*&nbsp;<span class="constructor">Asn</span>.<span class="constructor">Time</span>.t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Not_after</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Asn</span>.<span class="constructor">Time</span>.t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Not_before</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Asn</span>.<span class="constructor">Time</span>.t&nbsp;]<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;name_constraint&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="constructor">X509</span>.<span class="constructor">Extension</span>.general_name&nbsp;*&nbsp;int&nbsp;*&nbsp;int&nbsp;option)&nbsp;list<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;policy&nbsp;=&nbsp;[&nbsp;<span class="keywordsign">`</span><span class="constructor">Any</span>&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Something</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Asn</span>.<span class="constructor">OID</span>.t&nbsp;]<br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t&nbsp;=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<span class="keywordsign">`</span><span class="constructor">Authority_key_id</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">X509</span>.<span class="constructor">Extension</span>.authority_key_id<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Basic_constraints</span>&nbsp;<span class="keyword">of</span>&nbsp;bool&nbsp;*&nbsp;int&nbsp;option<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Ext_key_usage</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">X509</span>.<span class="constructor">Extension</span>.extended_key_usage&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Issuer_alt_name</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">X509</span>.<span class="constructor">Extension</span>.general_name&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Key_usage</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">X509</span>.<span class="constructor">Extension</span>.key_usage&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Name_constraints</span>&nbsp;<span class="keyword">of</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="constructor">X509</span>.<span class="constructor">Extension</span>.name_constraint&nbsp;*&nbsp;<span class="constructor">X509</span>.<span class="constructor">Extension</span>.name_constraint<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Policies</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">X509</span>.<span class="constructor">Extension</span>.policy&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Priv_key_period</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">X509</span>.<span class="constructor">Extension</span>.priv_key_usage_period<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Subject_alt_name</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">X509</span>.<span class="constructor">Extension</span>.general_name&nbsp;list<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Subject_key_id</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Cstruct</span>.t<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keywordsign">|</span>&nbsp;<span class="keywordsign">`</span><span class="constructor">Unsupported</span>&nbsp;<span class="keyword">of</span>&nbsp;<span class="constructor">Asn</span>.<span class="constructor">OID</span>.t&nbsp;*&nbsp;<span class="constructor">Cstruct</span>.t&nbsp;]<br>
+<span class="keyword">end</span></code></body></html>

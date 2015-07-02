@@ -20,10 +20,35 @@ An authenticator <code class="code">a</code> is a function taking a hostname and
       certificate stack to an authentication decision <a href="X509.Validation.html#TYPEresult"><code class="code">X509.Validation.result</code></a>.
 </div>
 </td></tr>
+<tr><td><a href="X509.Extension.html#TYPEauthority_key_id">authority_key_id</a> [<a href="X509.Extension.html">X509.Extension</a>]</td>
+<td><div class="info">
+The authority key id present in the respective extension.
+</div>
+</td></tr>
+<tr><td align="left"><br>C</td></tr>
+<tr><td><a href="X509.html#TYPEcomponent">component</a> [<a href="X509.html">X509</a>]</td>
+<td><div class="info">
+The polymorphic variant of a distinguished name component, as
+    defined in X.501.
+</div>
+</td></tr>
+<tr><td align="left"><br>D</td></tr>
+<tr><td><a href="X509.html#TYPEdistinguished_name">distinguished_name</a> [<a href="X509.html">X509</a>]</td>
+<td><div class="info">
+A distinguished name is a list of <code class="code">!components</code>.
+</div>
+</td></tr>
 <tr><td align="left"><br>E</td></tr>
-<tr><td><a href="X509.html#TYPEextended_key_usage">extended_key_usage</a> [<a href="X509.html">X509</a>]</td>
+<tr><td><a href="X509.Extension.html#TYPEextended_key_usage">extended_key_usage</a> [<a href="X509.Extension.html">X509.Extension</a>]</td>
 <td><div class="info">
 The polymorphic variant of extended key usages.
+</div>
+</td></tr>
+<tr><td align="left"><br>G</td></tr>
+<tr><td><a href="X509.Extension.html#TYPEgeneral_name">general_name</a> [<a href="X509.Extension.html">X509.Extension</a>]</td>
+<td><div class="info">
+The content of a SubjectAlternativeName and
+      IssuerAlternativeName extensions are general_name lists.
 </div>
 </td></tr>
 <tr><td align="left"><br>H</td></tr>
@@ -38,27 +63,64 @@ The polymorphic variant for hostname validation.
 The polymorphic variant of public key types.
 </div>
 </td></tr>
-<tr><td><a href="X509.html#TYPEkey_usage">key_usage</a> [<a href="X509.html">X509</a>]</td>
+<tr><td><a href="X509.Extension.html#TYPEkey_usage">key_usage</a> [<a href="X509.Extension.html">X509.Extension</a>]</td>
 <td><div class="info">
 The polymorphic variant of key usages.
 </div>
 </td></tr>
+<tr><td align="left"><br>N</td></tr>
+<tr><td><a href="X509.Extension.html#TYPEname_constraint">name_constraint</a> [<a href="X509.Extension.html">X509.Extension</a>]</td>
+<td><div class="info">
+Name constraint in a X509v3 extension
+</div>
+</td></tr>
 <tr><td align="left"><br>P</td></tr>
-<tr><td><a href="X509.html#TYPEpubkey">pubkey</a> [<a href="X509.html">X509</a>]</td>
+<tr><td><a href="X509.Extension.html#TYPEpolicy">policy</a> [<a href="X509.Extension.html">X509.Extension</a>]</td>
+<td><div class="info">
+Certificate policy
+</div>
+</td></tr>
+<tr><td><a href="X509.Extension.html#TYPEpriv_key_usage_period">priv_key_usage_period</a> [<a href="X509.Extension.html">X509.Extension</a>]</td>
+<td></td></tr>
+<tr><td><a href="X509.html#TYPEprivate_key">private_key</a> [<a href="X509.html">X509</a>]</td>
+<td><div class="info">
+The polymorphic variant of private keys.
+</div>
+</td></tr>
+<tr><td><a href="X509.html#TYPEpublic_key">public_key</a> [<a href="X509.html">X509</a>]</td>
 <td><div class="info">
 The polymorphic variant of public keys.
 </div>
 </td></tr>
 <tr><td align="left"><br>R</td></tr>
+<tr><td><a href="X509.CA.html#TYPErequest_extensions">request_extensions</a> [<a href="X509.CA.html">X509.CA</a>]</td>
+<td><div class="info">
+The polymorphic variant of certificate request extensions, as
+      defined in PKCS9.
+</div>
+</td></tr>
+<tr><td><a href="X509.CA.html#TYPErequest_info">request_info</a> [<a href="X509.CA.html">X509.CA</a>]</td>
+<td><div class="info">
+The raw request info of a signing request
+</div>
+</td></tr>
 <tr><td><a href="X509.Validation.html#TYPEresult">result</a> [<a href="X509.Validation.html">X509.Validation</a>]</td>
 <td><div class="info">
 The result of a validation: either success (optionally returning the used trust anchor), or failure
 </div>
 </td></tr>
-<tr><td align="left"><br>T</td></tr>
-<tr><td><a href="X509.Encoding.Pem.PK.html#TYPEt">t</a> [<a href="X509.Encoding.Pem.PK.html">X509.Encoding.Pem.PK</a>]</td>
+<tr><td align="left"><br>S</td></tr>
+<tr><td><a href="X509.CA.html#TYPEsigning_request">signing_request</a> [<a href="X509.CA.html">X509.CA</a>]</td>
 <td><div class="info">
-The private RSA key type
+The abstract type of a PKCS10 signing request.
+</div>
+</td></tr>
+<tr><td align="left"><br>T</td></tr>
+<tr><td><a href="X509.Encoding.Pem.Certificate_signing_request.html#TYPEt">t</a> [<a href="X509.Encoding.Pem.Certificate_signing_request.html">X509.Encoding.Pem.Certificate_signing_request</a>]</td>
+<td></td></tr>
+<tr><td><a href="X509.Extension.html#TYPEt">t</a> [<a href="X509.Extension.html">X509.Extension</a>]</td>
+<td><div class="info">
+The polymorphic variant of extensions
 </div>
 </td></tr>
 <tr><td><a href="X509.html#TYPEt">t</a> [<a href="X509.html">X509</a>]</td>

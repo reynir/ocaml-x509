@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="next" href="X509.CA.html">
+<link rel="Up" href="X509.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="X509" rel="Chapter" href="X509.html"><link title="X.509v3 extension" rel="Section" href="#1_X509v3extension">
+<title>X509.Extension</title>
+</head>
+<body>
+<div class="navbar">&nbsp;<a class="up" href="X509.html" title="X509">Up</a>
+&nbsp;<a class="post" href="X509.CA.html" title="X509.CA">Next</a>
+</div>
+<h1>Module <a href="type_X509.Extension.html">X509.Extension</a></h1>
+
+<pre><span class="keyword">module</span> Extension: <code class="code">sig</code> <a href="X509.Extension.html">..</a> <code class="code">end</code></pre><div class="info module top">
+X.509v3 extensions<br>
+</div>
+<hr width="100%">
+<br>
+<h1 id="1_X509v3extension">X.509v3 extension</h1><br>
+
+<pre><span id="TYPEkey_usage"><span class="keyword">type</span> <code class="type"></code>key_usage</span> = <code class="type">[ `CRL_sign<br>       | `Content_commitment<br>       | `Data_encipherment<br>       | `Decipher_only<br>       | `Digital_signature<br>       | `Encipher_only<br>       | `Key_agreement<br>       | `Key_cert_sign<br>       | `Key_encipherment ]</code> </pre>
+<div class="info ">
+The polymorphic variant of key usages.<br>
+</div>
+
+
+<pre><span id="VALsupports_usage"><span class="keyword">val</span> supports_usage</span> : <code class="type">?not_present:bool -> <a href="X509.html#TYPEt">X509.t</a> -> <a href="X509.Extension.html#TYPEkey_usage">key_usage</a> -> bool</code></pre><div class="info ">
+<code class="code">supports_usage ?not_present certificate key_usage</code> is <code class="code">result</code>,
+      whether the <code class="code">certificate</code> supports the given <code class="code">key_usage</code>.<br>
+</div>
+
+<pre><span id="TYPEextended_key_usage"><span class="keyword">type</span> <code class="type"></code>extended_key_usage</span> = <code class="type">[ `Any<br>       | `Client_auth<br>       | `Code_signing<br>       | `Email_protection<br>       | `Ipsec_end<br>       | `Ipsec_tunnel<br>       | `Ipsec_user<br>       | `Ocsp_signing<br>       | `Other of Asn.OID.t<br>       | `Server_auth<br>       | `Time_stamping ]</code> </pre>
+<div class="info ">
+The polymorphic variant of extended key usages.<br>
+</div>
+
+
+<pre><span id="VALsupports_extended_usage"><span class="keyword">val</span> supports_extended_usage</span> : <code class="type">?not_present:bool -> <a href="X509.html#TYPEt">X509.t</a> -> <a href="X509.Extension.html#TYPEextended_key_usage">extended_key_usage</a> -> bool</code></pre><div class="info ">
+<code class="code">supports_extended_usage certificate extended_key_usage</code> is
+      <code class="code">result</code>, whether the <code class="code">certificate</code> supports the given
+      <code class="code">extended_key_usage</code>.<br>
+</div>
+
+<pre><span id="TYPEgeneral_name"><span class="keyword">type</span> <code class="type"></code>general_name</span> = <code class="type">[ `DNS of string<br>       | `Directory of <a href="X509.html#TYPEdistinguished_name">X509.distinguished_name</a><br>       | `EDI_party of string option * string<br>       | `IP of Cstruct.t<br>       | `Other of Asn.OID.t * string<br>       | `Registered_id of Asn.OID.t<br>       | `Rfc_822 of string<br>       | `URI of string<br>       | `X400_address of unit ]</code> </pre>
+<div class="info ">
+The content of a SubjectAlternativeName and
+      IssuerAlternativeName extensions are general_name lists.<br>
+</div>
+
+
+<pre><span id="TYPEauthority_key_id"><span class="keyword">type</span> <code class="type"></code>authority_key_id</span> = <code class="type">Cstruct.t option * <a href="X509.Extension.html#TYPEgeneral_name">general_name</a> list * Z.t option</code> </pre>
+<div class="info ">
+The authority key id present in the respective extension.<br>
+</div>
+
+
+<pre><span id="TYPEpriv_key_usage_period"><span class="keyword">type</span> <code class="type"></code>priv_key_usage_period</span> = <code class="type">[ `Interval of Asn.Time.t * Asn.Time.t<br>       | `Not_after of Asn.Time.t<br>       | `Not_before of Asn.Time.t ]</code> </pre>
+
+
+<pre><span id="TYPEname_constraint"><span class="keyword">type</span> <code class="type"></code>name_constraint</span> = <code class="type">(<a href="X509.Extension.html#TYPEgeneral_name">general_name</a> * int * int option) list</code> </pre>
+<div class="info ">
+Name constraint in a X509v3 extension<br>
+</div>
+
+
+<pre><span id="TYPEpolicy"><span class="keyword">type</span> <code class="type"></code>policy</span> = <code class="type">[ `Any | `Something of Asn.OID.t ]</code> </pre>
+<div class="info ">
+Certificate policy<br>
+</div>
+
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> = <code class="type">[ `Authority_key_id of <a href="X509.Extension.html#TYPEauthority_key_id">authority_key_id</a><br>       | `Basic_constraints of bool * int option<br>       | `Ext_key_usage of <a href="X509.Extension.html#TYPEextended_key_usage">extended_key_usage</a> list<br>       | `Issuer_alt_name of <a href="X509.Extension.html#TYPEgeneral_name">general_name</a> list<br>       | `Key_usage of <a href="X509.Extension.html#TYPEkey_usage">key_usage</a> list<br>       | `Name_constraints of<br>           <a href="X509.Extension.html#TYPEname_constraint">name_constraint</a> * <a href="X509.Extension.html#TYPEname_constraint">name_constraint</a><br>       | `Policies of <a href="X509.Extension.html#TYPEpolicy">policy</a> list<br>       | `Priv_key_period of <a href="X509.Extension.html#TYPEpriv_key_usage_period">priv_key_usage_period</a><br>       | `Subject_alt_name of <a href="X509.Extension.html#TYPEgeneral_name">general_name</a> list<br>       | `Subject_key_id of Cstruct.t<br>       | `Unsupported of Asn.OID.t * Cstruct.t ]</code> </pre>
+<div class="info ">
+The polymorphic variant of extensions<br>
+</div>
+
+</body></html>

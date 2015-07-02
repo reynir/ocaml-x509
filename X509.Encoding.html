@@ -45,6 +45,16 @@ Encodings<br>
       encoded hash and signature.<br>
 </div>
 
+<pre><span id="VALrsa_public_to_cstruct"><span class="keyword">val</span> rsa_public_to_cstruct</span> : <code class="type">Nocrypto.Rsa.pub -> Cstruct.t</code></pre><div class="info ">
+<code class="code">rsa_public_to_cstruct pk</code> is <code class="code">buffer</code>, the ASN.1 encoding of the
+      given public key.<br>
+</div>
+
+<pre><span id="VALrsa_public_of_cstruct"><span class="keyword">val</span> rsa_public_of_cstruct</span> : <code class="type">Cstruct.t -> Nocrypto.Rsa.pub option</code></pre><div class="info ">
+<code class="code">rsa_public_of_cstruct buffer</code> is <code class="code">pubkey</code>, the public key of
+      the ASN.1 encoded buffer.<br>
+</div>
+
 <pre><span class="keyword">module</span> <a href="X509.Encoding.Pem.html">Pem</a>: <code class="code">sig</code> <a href="X509.Encoding.Pem.html">..</a> <code class="code">end</code></pre><div class="info">
 A parser for PEM files
 </div>

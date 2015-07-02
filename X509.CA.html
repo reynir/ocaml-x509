@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+<link rel="Start" href="index.html">
+<link rel="previous" href="X509.Extension.html">
+<link rel="next" href="X509.Validation.html">
+<link rel="Up" href="X509.html">
+<link title="Index of types" rel=Appendix href="index_types.html">
+<link title="Index of values" rel=Appendix href="index_values.html">
+<link title="Index of modules" rel=Appendix href="index_modules.html">
+<link title="X509" rel="Chapter" href="X509.html"><link title="Signing" rel="Section" href="#1_Signing">
+<title>X509.CA</title>
+</head>
+<body>
+<div class="navbar"><a class="pre" href="X509.Extension.html" title="X509.Extension">Previous</a>
+&nbsp;<a class="up" href="X509.html" title="X509">Up</a>
+&nbsp;<a class="post" href="X509.Validation.html" title="X509.Validation">Next</a>
+</div>
+<h1>Module <a href="type_X509.CA.html">X509.CA</a></h1>
+
+<pre><span class="keyword">module</span> CA: <code class="code">sig</code> <a href="X509.CA.html">..</a> <code class="code">end</code></pre><div class="info module top">
+Certificate Authority operations<br>
+</div>
+<hr width="100%">
+<br>
+<h1 id="1_Signing">Signing</h1><br>
+
+<pre><span id="TYPEsigning_request"><span class="keyword">type</span> <code class="type"></code>signing_request</span> </pre>
+<div class="info ">
+The abstract type of a PKCS10 signing request.<br>
+</div>
+
+
+<pre><span id="TYPErequest_extensions"><span class="keyword">type</span> <code class="type"></code>request_extensions</span> = <code class="type">[ `Extensions of (bool * <a href="X509.Extension.html#TYPEt">X509.Extension.t</a>) list<br>       | `Name of string<br>       | `Password of string ]</code> </pre>
+<div class="info ">
+The polymorphic variant of certificate request extensions, as
+      defined in PKCS9.<br>
+</div>
+
+
+<pre><code><span id="TYPErequest_info"><span class="keyword">type</span> <code class="type"></code>request_info</span> = {</code></pre><table class="typetable">
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTrequest_info.subject">subject</span>&nbsp;: <code class="type"><a href="X509.html#TYPEdistinguished_name">X509.distinguished_name</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTrequest_info.public_key">public_key</span>&nbsp;: <code class="type"><a href="X509.html#TYPEpublic_key">X509.public_key</a></code>;</code></td>
+
+</tr>
+<tr>
+<td align="left" valign="top" >
+<code>&nbsp;&nbsp;</code></td>
+<td align="left" valign="top" >
+<code><span id="TYPEELTrequest_info.extensions">extensions</span>&nbsp;: <code class="type"><a href="X509.CA.html#TYPErequest_extensions">request_extensions</a> list</code>;</code></td>
+
+</tr></table>
+}
+
+<div class="info ">
+The raw request info of a signing request<br>
+</div>
+
+
+<pre><span id="VALinfo"><span class="keyword">val</span> info</span> : <code class="type"><a href="X509.CA.html#TYPEsigning_request">signing_request</a> -> <a href="X509.CA.html#TYPErequest_info">request_info</a></code></pre><div class="info ">
+<code class="code">info signing_request</code> is <code class="code">request_info</code>, the information
+      inside the signing request<br>
+</div>
+
+<pre><span id="VALrequest"><span class="keyword">val</span> request</span> : <code class="type"><a href="X509.html#TYPEdistinguished_name">X509.distinguished_name</a> -><br>       ?digest:Nocrypto.Hash.hash -><br>       ?extensions:<a href="X509.CA.html#TYPErequest_extensions">request_extensions</a> list -><br>       <a href="X509.html#TYPEprivate_key">X509.private_key</a> -> <a href="X509.CA.html#TYPEsigning_request">signing_request</a></code></pre><div class="info ">
+<code class="code">request subject ~digest ~extensions private</code> creates
+      <code class="code">signing_request</code>, a self-signed certificate request using the
+      given digest (defaults to <code class="code">`SHA256</code>) and list of extensions.<br>
+</div>
+
+<pre><span id="VALsign"><span class="keyword">val</span> sign</span> : <code class="type"><a href="X509.CA.html#TYPEsigning_request">signing_request</a> -><br>       valid_from:Asn.Time.t -><br>       valid_until:Asn.Time.t -><br>       ?digest:Nocrypto.Hash.hash -><br>       ?serial:Z.t -><br>       ?extensions:(bool * <a href="X509.Extension.html#TYPEt">X509.Extension.t</a>) list -><br>       <a href="X509.html#TYPEprivate_key">X509.private_key</a> -> <a href="X509.html#TYPEdistinguished_name">X509.distinguished_name</a> -> <a href="X509.html#TYPEt">X509.t</a></code></pre><div class="info ">
+<code class="code">sign signing_request ~digest ~valid_from ~valid_until ~serial
+      ~extensions private issuer</code> is <code class="code">certificate</code>, the certificate
+      signed with given private key and issuer; digest defaults to
+      <code class="code">`SHA256</code>.<br>
+</div>
+</body></html>

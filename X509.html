@@ -78,7 +78,7 @@ The abstract type of certificates.<br>
 <br>
 <h1 id="1_Operationsonacertificate">Operations on a certificate</h1><br>
 
-<pre><span id="TYPEkey_type"><span class="keyword">type</span> <code class="type"></code>key_type</span> = <code class="type">[ `DH | `ECDH | `ECDSA | `RSA ]</code> </pre>
+<pre><span id="TYPEkey_type"><span class="keyword">type</span> <code class="type"></code>key_type</span> = <code class="type">[ `EC of Asn.OID.t | `RSA ]</code> </pre>
 <div class="info ">
 The polymorphic variant of public key types.<br>
 </div>
@@ -88,42 +88,34 @@ The polymorphic variant of public key types.<br>
 <code class="code">supports_keytype certificate key_type</code> is <code class="code">result</code>, whether public key of the <code class="code">certificate</code> matches the given <code class="code">key_type</code>.<br>
 </div>
 
-<pre><span id="TYPEpubkey"><span class="keyword">type</span> <code class="type"></code>pubkey</span> = <code class="type">[ `RSA of Nocrypto.Rsa.pub ]</code> </pre>
+<pre><span id="TYPEpublic_key"><span class="keyword">type</span> <code class="type"></code>public_key</span> = <code class="type">[ `EC_pub of Asn.OID.t | `RSA of Nocrypto.Rsa.pub ]</code> </pre>
 <div class="info ">
 The polymorphic variant of public keys.<br>
 </div>
 
 
-<pre><span id="VALcert_pubkey"><span class="keyword">val</span> cert_pubkey</span> : <code class="type"><a href="X509.html#TYPEt">t</a> -> <a href="X509.html#TYPEpubkey">pubkey</a> option</code></pre><div class="info ">
-<code class="code">cert_pubkey certificate</code> is <code class="code">pubkey</code>, the public key of the
+<pre><span id="VALkey_id"><span class="keyword">val</span> key_id</span> : <code class="type"><a href="X509.html#TYPEpublic_key">public_key</a> -> Cstruct.t</code></pre><div class="info ">
+<code class="code">key_id public_key</code> return the 160-bit SHA-1 hash
+    of the BIT STRING subjectPublicKey (excluding the tag, length, and
+    number of unused bits) for the publicKeyInfo in <code class="code">input</code>.
+<p>
+
+    RFC 5280, 4.2.1.2., variant (1)<br>
+</div>
+
+<pre><span id="TYPEprivate_key"><span class="keyword">type</span> <code class="type"></code>private_key</span> = <code class="type">[ `RSA of Nocrypto.Rsa.priv ]</code> </pre>
+<div class="info ">
+The polymorphic variant of private keys.<br>
+</div>
+
+
+<pre><span id="VALpublic_key"><span class="keyword">val</span> public_key</span> : <code class="type"><a href="X509.html#TYPEt">t</a> -> <a href="X509.html#TYPEpublic_key">public_key</a></code></pre><div class="info ">
+<code class="code">public_key certificate</code> is <code class="code">pubkey</code>, the public key of the
     <code class="code">certificate</code>.<br>
 </div>
 
-<pre><span id="TYPEkey_usage"><span class="keyword">type</span> <code class="type"></code>key_usage</span> = <code class="type">[ `CRL_sign<br>       | `Content_commitment<br>       | `Data_encipherment<br>       | `Decipher_only<br>       | `Digital_signature<br>       | `Encipher_only<br>       | `Key_agreement<br>       | `Key_cert_sign<br>       | `Key_encipherment ]</code> </pre>
-<div class="info ">
-The polymorphic variant of key usages.<br>
-</div>
-
-
-<pre><span id="VALsupports_usage"><span class="keyword">val</span> supports_usage</span> : <code class="type">?not_present:bool -> <a href="X509.html#TYPEt">t</a> -> <a href="X509.html#TYPEkey_usage">key_usage</a> -> bool</code></pre><div class="info ">
-<code class="code">supports_usage ?not_present certificate key_usage</code> is <code class="code">result</code>,
-    whether the <code class="code">certificate</code> supports the given <code class="code">key_usage</code>.<br>
-</div>
-
-<pre><span id="TYPEextended_key_usage"><span class="keyword">type</span> <code class="type"></code>extended_key_usage</span> = <code class="type">[ `Any<br>       | `Client_auth<br>       | `Code_signing<br>       | `Email_protection<br>       | `Ipsec_end<br>       | `Ipsec_tunnel<br>       | `Ipsec_user<br>       | `Ocsp_signing<br>       | `Other of Asn.OID.t<br>       | `Server_auth<br>       | `Time_stamping ]</code> </pre>
-<div class="info ">
-The polymorphic variant of extended key usages.<br>
-</div>
-
-
-<pre><span id="VALsupports_extended_usage"><span class="keyword">val</span> supports_extended_usage</span> : <code class="type">?not_present:bool -> <a href="X509.html#TYPEt">t</a> -> <a href="X509.html#TYPEextended_key_usage">extended_key_usage</a> -> bool</code></pre><div class="info ">
-<code class="code">supports_extended_usage certificate extended_key_usage</code> is
-    <code class="code">result</code>, whether the <code class="code">certificate</code> supports the given
-    <code class="code">extended_key_usage</code>.<br>
-</div>
-
-<pre><span id="VALcert_hostnames"><span class="keyword">val</span> cert_hostnames</span> : <code class="type"><a href="X509.html#TYPEt">t</a> -> string list</code></pre><div class="info ">
-<code class="code">cert_hostnames certficate</code> are <code class="code">hostnames</code>, the list of hostnames
+<pre><span id="VALhostnames"><span class="keyword">val</span> hostnames</span> : <code class="type"><a href="X509.html#TYPEt">t</a> -> string list</code></pre><div class="info ">
+<code class="code">hostnames certficate</code> are <code class="code">hostnames</code>, the list of hostnames
     this <code class="code">certifcate</code> is valid for.  Currently, these are the DNS names of
     the subject alternativ name extension, if present, or otherwise the
     singleton list containing the common name.<br>
@@ -138,12 +130,52 @@ The polymorphic variant for hostname validation.<br>
 <pre><span id="VALsupports_hostname"><span class="keyword">val</span> supports_hostname</span> : <code class="type"><a href="X509.html#TYPEt">t</a> -> <a href="X509.html#TYPEhost">host</a> -> bool</code></pre><div class="info ">
 <code class="code">supports_hostname certificate host</code> is <code class="code">result</code>, whether the
     <code class="code">certificate</code> contains the given <code class="code">host</code>, using
-    <a href="X509.html#VALcert_hostnames"><code class="code">X509.cert_hostnames</code></a>.<br>
+    <a href="X509.html#VALhostnames"><code class="code">X509.hostnames</code></a>.<br>
 </div>
 
 <pre><span id="VALcommon_name_to_string"><span class="keyword">val</span> common_name_to_string</span> : <code class="type"><a href="X509.html#TYPEt">t</a> -> string</code></pre><div class="info ">
 <code class="code">common_name_to_string certificate</code> is <code class="code">common_name</code>, the common
     name of the subject of the <code class="code">certificate</code>.<br>
+</div>
+
+<pre><span id="TYPEcomponent"><span class="keyword">type</span> <code class="type"></code>component</span> = <code class="type">[ `C of string<br>       | `CN of string<br>       | `DC of string<br>       | `DNQ of string<br>       | `Generation of string<br>       | `Given_name of string<br>       | `Initials of string<br>       | `L of string<br>       | `Mail of string<br>       | `O of string<br>       | `OU of string<br>       | `Other of Asn.OID.t * string<br>       | `Pseudonym of string<br>       | `SP of string<br>       | `Serialnumber of string<br>       | `Surname of string<br>       | `T of string ]</code> </pre>
+<div class="info ">
+The polymorphic variant of a distinguished name component, as
+    defined in X.501.<br>
+</div>
+
+
+<pre><span id="TYPEdistinguished_name"><span class="keyword">type</span> <code class="type"></code>distinguished_name</span> = <code class="type"><a href="X509.html#TYPEcomponent">component</a> list</code> </pre>
+<div class="info ">
+A distinguished name is a list of <code class="code">!components</code>.<br>
+</div>
+
+
+<pre><span id="VALdistinguished_name_to_string"><span class="keyword">val</span> distinguished_name_to_string</span> : <code class="type"><a href="X509.html#TYPEdistinguished_name">distinguished_name</a> -> string</code></pre><div class="info ">
+<code class="code">distinguished_name_to_string dn</code> is <code class="code">string</code>, the string
+    representation of the distinguished name.<br>
+</div>
+
+<pre><span id="VALsubject"><span class="keyword">val</span> subject</span> : <code class="type"><a href="X509.html#TYPEt">t</a> -> <a href="X509.html#TYPEdistinguished_name">distinguished_name</a></code></pre><div class="info ">
+<code class="code">subject t</code> is <code class="code">dn</code>, the subject as distinguished name of the
+    certificate.<br>
+</div>
+
+<pre><span id="VALissuer"><span class="keyword">val</span> issuer</span> : <code class="type"><a href="X509.html#TYPEt">t</a> -> <a href="X509.html#TYPEdistinguished_name">distinguished_name</a></code></pre><div class="info ">
+<code class="code">issuer t</code> is <code class="code">dn</code>, the issuer as distinguished name of the
+    certificate.<br>
+</div>
+
+<pre><span id="VALserial"><span class="keyword">val</span> serial</span> : <code class="type"><a href="X509.html#TYPEt">t</a> -> Z.t</code></pre><div class="info ">
+<code class="code">serial t</code> is <code class="code">sn</code>, the serial number of the certificate.<br>
+</div>
+
+<pre><span class="keyword">module</span> <a href="X509.Extension.html">Extension</a>: <code class="code">sig</code> <a href="X509.Extension.html">..</a> <code class="code">end</code></pre><div class="info">
+X.509v3 extensions
+</div>
+
+<pre><span class="keyword">module</span> <a href="X509.CA.html">CA</a>: <code class="code">sig</code> <a href="X509.CA.html">..</a> <code class="code">end</code></pre><div class="info">
+Certificate Authority operations
 </div>
 
 <pre><span class="keyword">module</span> <a href="X509.Validation.html">Validation</a>: <code class="code">sig</code> <a href="X509.Validation.html">..</a> <code class="code">end</code></pre><div class="info">

@@ -20,18 +20,6 @@
 </div>
 </td></tr>
 <tr><td align="left"><br>C</td></tr>
-<tr><td><a href="X509.html#VALcert_hostnames">cert_hostnames</a> [<a href="X509.html">X509</a>]</td>
-<td><div class="info">
-<code class="code">cert_hostnames certficate</code> are <code class="code">hostnames</code>, the list of hostnames
-    this <code class="code">certifcate</code> is valid for.
-</div>
-</td></tr>
-<tr><td><a href="X509.html#VALcert_pubkey">cert_pubkey</a> [<a href="X509.html">X509</a>]</td>
-<td><div class="info">
-<code class="code">cert_pubkey certificate</code> is <code class="code">pubkey</code>, the public key of the
-    <code class="code">certificate</code>.
-</div>
-</td></tr>
 <tr><td><a href="X509.Authenticator.html#VALchain_of_trust">chain_of_trust</a> [<a href="X509.Authenticator.html">X509.Authenticator</a>]</td>
 <td><div class="info">
 <code class="code">chain_of_trust ?time trust_anchors</code> is <code class="code">authenticator</code>, which
@@ -51,6 +39,41 @@
       representation of the <code class="code">certificate</code>.
 </div>
 </td></tr>
+<tr><td align="left"><br>D</td></tr>
+<tr><td><a href="X509.html#VALdistinguished_name_to_string">distinguished_name_to_string</a> [<a href="X509.html">X509</a>]</td>
+<td><div class="info">
+<code class="code">distinguished_name_to_string dn</code> is <code class="code">string</code>, the string
+    representation of the distinguished name.
+</div>
+</td></tr>
+<tr><td align="left"><br>H</td></tr>
+<tr><td><a href="X509.html#VALhostnames">hostnames</a> [<a href="X509.html">X509</a>]</td>
+<td><div class="info">
+<code class="code">hostnames certficate</code> are <code class="code">hostnames</code>, the list of hostnames
+    this <code class="code">certifcate</code> is valid for.
+</div>
+</td></tr>
+<tr><td align="left"><br>I</td></tr>
+<tr><td><a href="X509.CA.html#VALinfo">info</a> [<a href="X509.CA.html">X509.CA</a>]</td>
+<td><div class="info">
+<code class="code">info signing_request</code> is <code class="code">request_info</code>, the information
+      inside the signing request
+</div>
+</td></tr>
+<tr><td><a href="X509.html#VALissuer">issuer</a> [<a href="X509.html">X509</a>]</td>
+<td><div class="info">
+<code class="code">issuer t</code> is <code class="code">dn</code>, the issuer as distinguished name of the
+    certificate.
+</div>
+</td></tr>
+<tr><td align="left"><br>K</td></tr>
+<tr><td><a href="X509.html#VALkey_id">key_id</a> [<a href="X509.html">X509</a>]</td>
+<td><div class="info">
+<code class="code">key_id public_key</code> return the 160-bit SHA-1 hash
+    of the BIT STRING subjectPublicKey (excluding the tag, length, and
+    number of unused bits) for the publicKeyInfo in <code class="code">input</code>.
+</div>
+</td></tr>
 <tr><td align="left"><br>N</td></tr>
 <tr><td><a href="X509.Authenticator.html#VALnull">null</a> [<a href="X509.Authenticator.html">X509.Authenticator</a>]</td>
 <td><div class="info">
@@ -58,25 +81,49 @@
 </div>
 </td></tr>
 <tr><td align="left"><br>O</td></tr>
-<tr><td><a href="X509.Encoding.Pem.PK.html#VALof_pem_cstruct">of_pem_cstruct</a> [<a href="X509.Encoding.Pem.PK.html">X509.Encoding.Pem.PK</a>]</td>
+<tr><td><a href="X509.Encoding.Pem.Private_key.html#VALof_pem_cstruct">of_pem_cstruct</a> [<a href="X509.Encoding.Pem.Private_key.html">X509.Encoding.Pem.Private_key</a>]</td>
 <td><div class="info">
 <code class="code">of_pem_cstruct pem</code> is <code class="code">t list</code>, where all private keys of
           <code class="code">pem</code> are extracted
 </div>
 </td></tr>
-<tr><td><a href="X509.Encoding.Pem.Cert.html#VALof_pem_cstruct">of_pem_cstruct</a> [<a href="X509.Encoding.Pem.Cert.html">X509.Encoding.Pem.Cert</a>]</td>
+<tr><td><a href="X509.Encoding.Pem.Public_key.html#VALof_pem_cstruct">of_pem_cstruct</a> [<a href="X509.Encoding.Pem.Public_key.html">X509.Encoding.Pem.Public_key</a>]</td>
+<td><div class="info">
+<code class="code">of_pem_cstruct pem</code> is <code class="code">t list</code>, where all public keys of
+          <code class="code">pem</code> are extracted
+</div>
+</td></tr>
+<tr><td><a href="X509.Encoding.Pem.Certificate_signing_request.html#VALof_pem_cstruct">of_pem_cstruct</a> [<a href="X509.Encoding.Pem.Certificate_signing_request.html">X509.Encoding.Pem.Certificate_signing_request</a>]</td>
+<td><div class="info">
+<code class="code">of_pem_cstruct pem</code> is <code class="code">t list</code>, where all signing requests
+          of the <code class="code">pem</code> are extracted
+</div>
+</td></tr>
+<tr><td><a href="X509.Encoding.Pem.Certificate.html#VALof_pem_cstruct">of_pem_cstruct</a> [<a href="X509.Encoding.Pem.Certificate.html">X509.Encoding.Pem.Certificate</a>]</td>
 <td><div class="info">
 <code class="code">of_pem_cstruct pem</code> is <code class="code">t list</code>, where all certificates of
           the <code class="code">pem</code> are extracted
 </div>
 </td></tr>
-<tr><td><a href="X509.Encoding.Pem.PK.html#VALof_pem_cstruct1">of_pem_cstruct1</a> [<a href="X509.Encoding.Pem.PK.html">X509.Encoding.Pem.PK</a>]</td>
+<tr><td><a href="X509.Encoding.Pem.Private_key.html#VALof_pem_cstruct1">of_pem_cstruct1</a> [<a href="X509.Encoding.Pem.Private_key.html">X509.Encoding.Pem.Private_key</a>]</td>
 <td><div class="info">
 <code class="code">of_pem_cstruct1 pem</code> is <code class="code">t</code>, where the private key of <code class="code">pem</code>
           is extracted
 </div>
 </td></tr>
-<tr><td><a href="X509.Encoding.Pem.Cert.html#VALof_pem_cstruct1">of_pem_cstruct1</a> [<a href="X509.Encoding.Pem.Cert.html">X509.Encoding.Pem.Cert</a>]</td>
+<tr><td><a href="X509.Encoding.Pem.Public_key.html#VALof_pem_cstruct1">of_pem_cstruct1</a> [<a href="X509.Encoding.Pem.Public_key.html">X509.Encoding.Pem.Public_key</a>]</td>
+<td><div class="info">
+<code class="code">of_pem_cstruct1 pem</code> is <code class="code">t</code>, where the public key of <code class="code">pem</code>
+          is extracted
+</div>
+</td></tr>
+<tr><td><a href="X509.Encoding.Pem.Certificate_signing_request.html#VALof_pem_cstruct1">of_pem_cstruct1</a> [<a href="X509.Encoding.Pem.Certificate_signing_request.html">X509.Encoding.Pem.Certificate_signing_request</a>]</td>
+<td><div class="info">
+<code class="code">of_pem_cstruct1 pem</code> is <code class="code">t</code>, where the single signing
+          request of the <code class="code">pem</code> is extracted
+</div>
+</td></tr>
+<tr><td><a href="X509.Encoding.Pem.Certificate.html#VALof_pem_cstruct1">of_pem_cstruct1</a> [<a href="X509.Encoding.Pem.Certificate.html">X509.Encoding.Pem.Certificate</a>]</td>
 <td><div class="info">
 <code class="code">of_pem_cstruct1 pem</code> is <code class="code">t</code>, where the single certificate
           of the <code class="code">pem</code> is extracted
@@ -108,7 +155,38 @@
       encoded hash and signature.
 </div>
 </td></tr>
+<tr><td><a href="X509.html#VALpublic_key">public_key</a> [<a href="X509.html">X509</a>]</td>
+<td><div class="info">
+<code class="code">public_key certificate</code> is <code class="code">pubkey</code>, the public key of the
+    <code class="code">certificate</code>.
+</div>
+</td></tr>
+<tr><td align="left"><br>R</td></tr>
+<tr><td><a href="X509.CA.html#VALrequest">request</a> [<a href="X509.CA.html">X509.CA</a>]</td>
+<td><div class="info">
+<code class="code">request subject ~digest ~extensions private</code> creates
+      <code class="code">signing_request</code>, a self-signed certificate request using the
+      given digest (defaults to <code class="code">`SHA256</code>) and list of extensions.
+</div>
+</td></tr>
+<tr><td><a href="X509.Encoding.html#VALrsa_public_of_cstruct">rsa_public_of_cstruct</a> [<a href="X509.Encoding.html">X509.Encoding</a>]</td>
+<td><div class="info">
+<code class="code">rsa_public_of_cstruct buffer</code> is <code class="code">pubkey</code>, the public key of
+      the ASN.1 encoded buffer.
+</div>
+</td></tr>
+<tr><td><a href="X509.Encoding.html#VALrsa_public_to_cstruct">rsa_public_to_cstruct</a> [<a href="X509.Encoding.html">X509.Encoding</a>]</td>
+<td><div class="info">
+<code class="code">rsa_public_to_cstruct pk</code> is <code class="code">buffer</code>, the ASN.1 encoding of the
+      given public key.
+</div>
+</td></tr>
 <tr><td align="left"><br>S</td></tr>
+<tr><td><a href="X509.html#VALserial">serial</a> [<a href="X509.html">X509</a>]</td>
+<td><div class="info">
+<code class="code">serial t</code> is <code class="code">sn</code>, the serial number of the certificate.
+</div>
+</td></tr>
 <tr><td><a href="X509.Authenticator.html#VALserver_fingerprint">server_fingerprint</a> [<a href="X509.Authenticator.html">X509.Authenticator</a>]</td>
 <td><div class="info">
 <code class="code">server_fingerprint ?time hash fingerprints</code> is an
@@ -132,18 +210,32 @@
 <code class="code">sexp_of_validation_error validation_error</code> is <code class="code">sexp</code>, the marshalled <code class="code">validation_error</code>.
 </div>
 </td></tr>
-<tr><td><a href="X509.html#VALsupports_extended_usage">supports_extended_usage</a> [<a href="X509.html">X509</a>]</td>
+<tr><td><a href="X509.CA.html#VALsign">sign</a> [<a href="X509.CA.html">X509.CA</a>]</td>
+<td><div class="info">
+<code class="code">sign signing_request ~digest ~valid_from ~valid_until ~serial
+      ~extensions private issuer</code> is <code class="code">certificate</code>, the certificate
+      signed with given private key and issuer; digest defaults to
+      <code class="code">`SHA256</code>.
+</div>
+</td></tr>
+<tr><td><a href="X509.html#VALsubject">subject</a> [<a href="X509.html">X509</a>]</td>
+<td><div class="info">
+<code class="code">subject t</code> is <code class="code">dn</code>, the subject as distinguished name of the
+    certificate.
+</div>
+</td></tr>
+<tr><td><a href="X509.Extension.html#VALsupports_extended_usage">supports_extended_usage</a> [<a href="X509.Extension.html">X509.Extension</a>]</td>
 <td><div class="info">
 <code class="code">supports_extended_usage certificate extended_key_usage</code> is
-    <code class="code">result</code>, whether the <code class="code">certificate</code> supports the given
-    <code class="code">extended_key_usage</code>.
+      <code class="code">result</code>, whether the <code class="code">certificate</code> supports the given
+      <code class="code">extended_key_usage</code>.
 </div>
 </td></tr>
 <tr><td><a href="X509.html#VALsupports_hostname">supports_hostname</a> [<a href="X509.html">X509</a>]</td>
 <td><div class="info">
 <code class="code">supports_hostname certificate host</code> is <code class="code">result</code>, whether the
     <code class="code">certificate</code> contains the given <code class="code">host</code>, using
-    <a href="X509.html#VALcert_hostnames"><code class="code">X509.cert_hostnames</code></a>.
+    <a href="X509.html#VALhostnames"><code class="code">X509.hostnames</code></a>.
 </div>
 </td></tr>
 <tr><td><a href="X509.html#VALsupports_keytype">supports_keytype</a> [<a href="X509.html">X509</a>]</td>
@@ -151,16 +243,64 @@
 <code class="code">supports_keytype certificate key_type</code> is <code class="code">result</code>, whether public key of the <code class="code">certificate</code> matches the given <code class="code">key_type</code>.
 </div>
 </td></tr>
-<tr><td><a href="X509.html#VALsupports_usage">supports_usage</a> [<a href="X509.html">X509</a>]</td>
+<tr><td><a href="X509.Extension.html#VALsupports_usage">supports_usage</a> [<a href="X509.Extension.html">X509.Extension</a>]</td>
 <td><div class="info">
 <code class="code">supports_usage ?not_present certificate key_usage</code> is <code class="code">result</code>,
-    whether the <code class="code">certificate</code> supports the given <code class="code">key_usage</code>.
+      whether the <code class="code">certificate</code> supports the given <code class="code">key_usage</code>.
 </div>
 </td></tr>
 <tr><td align="left"><br>T</td></tr>
 <tr><td><a href="X509.html#VALt_of_sexp">t_of_sexp</a> [<a href="X509.html">X509</a>]</td>
 <td><div class="info">
 <code class="code">t_of_sexp sexp</code> is <code class="code">certificate</code>, the unmarshalled <code class="code">sexp</code>.
+</div>
+</td></tr>
+<tr><td><a href="X509.Encoding.Pem.Private_key.html#VALto_pem_cstruct">to_pem_cstruct</a> [<a href="X509.Encoding.Pem.Private_key.html">X509.Encoding.Pem.Private_key</a>]</td>
+<td><div class="info">
+<code class="code">to_pem_cstruct private_keys</code> is <code class="code">pem</code>, the pem encoded
+          private keys.
+</div>
+</td></tr>
+<tr><td><a href="X509.Encoding.Pem.Public_key.html#VALto_pem_cstruct">to_pem_cstruct</a> [<a href="X509.Encoding.Pem.Public_key.html">X509.Encoding.Pem.Public_key</a>]</td>
+<td><div class="info">
+<code class="code">to_pem_cstruct public_keys</code> is <code class="code">pem</code>, the pem encoded
+          public keys.
+</div>
+</td></tr>
+<tr><td><a href="X509.Encoding.Pem.Certificate_signing_request.html#VALto_pem_cstruct">to_pem_cstruct</a> [<a href="X509.Encoding.Pem.Certificate_signing_request.html">X509.Encoding.Pem.Certificate_signing_request</a>]</td>
+<td><div class="info">
+<code class="code">to_pem_cstruct signing_requests</code> is <code class="code">pem</code>, the pem encoded
+          signing requests.
+</div>
+</td></tr>
+<tr><td><a href="X509.Encoding.Pem.Certificate.html#VALto_pem_cstruct">to_pem_cstruct</a> [<a href="X509.Encoding.Pem.Certificate.html">X509.Encoding.Pem.Certificate</a>]</td>
+<td><div class="info">
+<code class="code">to_pem_cstruct certificates</code> is <code class="code">pem</code>, the pem encoded
+          certificates.
+</div>
+</td></tr>
+<tr><td><a href="X509.Encoding.Pem.Private_key.html#VALto_pem_cstruct1">to_pem_cstruct1</a> [<a href="X509.Encoding.Pem.Private_key.html">X509.Encoding.Pem.Private_key</a>]</td>
+<td><div class="info">
+<code class="code">to_pem_cstruct1 private_key</code> is <code class="code">pem</code>, the pem encoded
+          private key.
+</div>
+</td></tr>
+<tr><td><a href="X509.Encoding.Pem.Public_key.html#VALto_pem_cstruct1">to_pem_cstruct1</a> [<a href="X509.Encoding.Pem.Public_key.html">X509.Encoding.Pem.Public_key</a>]</td>
+<td><div class="info">
+<code class="code">to_pem_cstruct1 public_key</code> is <code class="code">pem</code>, the pem encoded
+          public key.
+</div>
+</td></tr>
+<tr><td><a href="X509.Encoding.Pem.Certificate_signing_request.html#VALto_pem_cstruct1">to_pem_cstruct1</a> [<a href="X509.Encoding.Pem.Certificate_signing_request.html">X509.Encoding.Pem.Certificate_signing_request</a>]</td>
+<td><div class="info">
+<code class="code">to_pem_cstruct1 signing_request</code> is <code class="code">pem</code>, the pem encoded
+          signing_request.
+</div>
+</td></tr>
+<tr><td><a href="X509.Encoding.Pem.Certificate.html#VALto_pem_cstruct1">to_pem_cstruct1</a> [<a href="X509.Encoding.Pem.Certificate.html">X509.Encoding.Pem.Certificate</a>]</td>
+<td><div class="info">
+<code class="code">to_pem_cstruct1 certificate</code> is <code class="code">pem</code>, the pem encoded
+          certificate.
 </div>
 </td></tr>
 <tr><td><a href="X509.Validation.html#VALtrust_fingerprint">trust_fingerprint</a> [<a href="X509.Validation.html">X509.Validation</a>]</td>
