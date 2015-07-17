@@ -82,8 +82,10 @@ The raw request info of a signing request<br>
 
 <pre><span id="VALsign"><span class="keyword">val</span> sign</span> : <code class="type"><a href="X509.CA.html#TYPEsigning_request">signing_request</a> -><br>       valid_from:Asn.Time.t -><br>       valid_until:Asn.Time.t -><br>       ?digest:Nocrypto.Hash.hash -><br>       ?serial:Z.t -><br>       ?extensions:(bool * <a href="X509.Extension.html#TYPEt">X509.Extension.t</a>) list -><br>       <a href="X509.html#TYPEprivate_key">X509.private_key</a> -> <a href="X509.html#TYPEdistinguished_name">X509.distinguished_name</a> -> <a href="X509.html#TYPEt">X509.t</a></code></pre><div class="info ">
 <code class="code">sign signing_request ~digest ~valid_from ~valid_until ~serial
-      ~extensions private issuer</code> is <code class="code">certificate</code>, the certificate
-      signed with given private key and issuer; digest defaults to
-      <code class="code">`SHA256</code>.<br>
+      ~extensions private issuer</code> is <code class="code">certificate</code>, a signed
+      certificate.  Public key and subject are taken from the
+      <code class="code">signing_request</code>, passed <code class="code">extensions</code> are added to the X.509
+      certificate.  The <code class="code">private</code> key and <code class="code">issuer</code> are used.  Digest
+      defaults to <code class="code">`SHA256</code>.<br>
 </div>
 </body></html>
