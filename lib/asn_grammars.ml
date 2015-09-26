@@ -848,6 +848,9 @@ let signed_public_key_and_challenge =
   @ (required ~label:"signatureAlgorithm" @@ Algorithm.identifier)
   -@ (required ~label:"signature" @@ Asn.bit_string_cs)
 
+let (spkac_of_cstruct, spkac_to_cstruct) =
+  projections_of der signed_public_key_and_challenge
+
 (*
  * X509 certs
  *)
