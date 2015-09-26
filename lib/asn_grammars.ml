@@ -802,6 +802,53 @@ module CertificateRequest = struct
 end
 
 (*
+ * SPKAC
+ *)
+
+
+type public_key_and_challenge = {
+  spki : public_key;
+  challenge : string;
+}
+
+type signed_public_key_and_challenge = {
+  public_key_and_challenge : public_key_and_challenge;
+  signature_algorithm : Algorithm.t;
+  signature : Cstruct.t;
+}
+
+let public_key_and_challenge =
+  let f = fun (a, b) ->
+    { spki = a;
+      challenge = b }
+  and g = fun
+    { spki = a;
+      challenge = b } ->
+    (a, b)
+  in
+  map f g @@
+  sequence @@
+  (required ~label:"spki" @@ PK.pk_info_der)
+  -@ (required ~label:"challenge" @@ Asn.ia5_string)
+
+let signed_public_key_and_challenge =
+  let f = fun (a, (b, c)) ->
+    { public_key_and_challenge = a;
+      signature_algorithm = b;
+      signature = c }
+  and g = fun
+    { public_key_and_challenge = a;
+      signature_algorithm = b;
+      signature = c } ->
+    (a, (b, c))
+  in
+  map f g @@
+  sequence @@
+  (required ~label:"publicKeyAndChallenge" @@ public_key_and_challenge)
+  @ (required ~label:"signatureAlgorithm" @@ Algorithm.identifier)
+  -@ (required ~label:"signature" @@ Asn.bit_string_cs)
+
+(*
  * X509 certs
  *)
 
